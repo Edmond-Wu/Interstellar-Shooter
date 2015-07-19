@@ -10,10 +10,10 @@ public class Destruction : MonoBehaviour {
 		if (other.tag == "Borders") {
 			return;
 		}
+		Instantiate(explosion, transform.position, transform.rotation);
 		if (other.tag == "Player") {
 			Instantiate (player_destruction, other.transform.position, other.transform.rotation);
 		}
-		Instantiate(explosion, transform.position, transform.rotation);
 		Destroy(other.gameObject);
 		Destroy (gameObject);
 	}

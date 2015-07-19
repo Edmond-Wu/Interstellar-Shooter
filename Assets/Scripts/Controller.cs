@@ -21,8 +21,8 @@ public class Controller : MonoBehaviour {
 		if ((Input.GetButton("Fire1") || Input.GetKeyDown ("space")) && Time.time > next_fire) {
 			next_fire = Time.time + fire_rate;
 			Instantiate(shot, shot_gen.position, shot_gen.rotation);
+			GetComponent<AudioSource>().Play(); //laser shot sound effect
 		}
-
 	}
 
 	void FixedUpdate() {

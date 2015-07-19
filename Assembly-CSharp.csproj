@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\BoundaryRemoval.cs" />
      <Compile Include="Assets\Scripts\Controller.cs" />
      <Compile Include="Assets\Scripts\Destruction.cs" />
+     <Compile Include="Assets\Scripts\ExplosionRemoval.cs" />
+     <Compile Include="Assets\Scripts\GameController.cs" />
      <Compile Include="Assets\Scripts\Movement.cs" />
      <Compile Include="Assets\Scripts\Rotator.cs" />
  <Reference Include="UnityEngine.UI">
