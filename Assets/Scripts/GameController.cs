@@ -9,8 +9,12 @@ public class GameController : MonoBehaviour {
 	public float wait_spawn;
 	public float begin_wait;
 	public float between_waves;
+	public GUIText score_display;
+	private int score;
 
 	void Start() {
+		score = 0;
+		UpdateScore ();
 		StartCoroutine(SpawnAsteroids ());
 	}
 
@@ -25,5 +29,14 @@ public class GameController : MonoBehaviour {
 			}
 			yield return new WaitForSeconds(between_waves);
 		}
+	}
+
+	public void AddPoints(int points) {
+		score += points;
+		UpdateScore ();
+	}
+
+	void UpdateScore() {
+		score_display.text = "Score: " + score;
 	}
 }
