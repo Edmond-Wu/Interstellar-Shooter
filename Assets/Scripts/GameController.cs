@@ -9,13 +9,31 @@ public class GameController : MonoBehaviour {
 	public float wait_spawn;
 	public float begin_wait;
 	public float between_waves;
-	public GUIText score_display;
 	private int score;
+
+	public GUIText score_display;
+	public GUIText restart_display;
+	public GUIText gameover_display;
+
+	private bool game_over;
+	private bool restart;
 
 	void Start() {
 		score = 0;
 		UpdateScore ();
 		StartCoroutine(SpawnAsteroids ());
+		gameover_display.text = "";
+		restart_display.text = "";
+		game_over = false;
+		restart = false;
+	}
+
+	void Update() {
+		if (restart) {
+			if (Input.GetKeyDown (KeyCode.R)) {
+				Application.LoadLevel (Application.loadedLevel);
+			}
+		}
 	}
 
 	IEnumerator SpawnAsteroids() {
@@ -28,6 +46,12 @@ public class GameController : MonoBehaviour {
 				yield return new WaitForSeconds(wait_spawn);
 			}
 			yield return new WaitForSeconds(between_waves);
+
+			if (game_over) {
+				restart_display.text = "Press R to Restart";
+				restart = true;
+				break;
+			}
 		}
 	}
 
@@ -37,6 +61,12 @@ public class GameController : MonoBehaviour {
 	}
 
 	void UpdateScore() {
-		score_display.text = "Score: " + score;
+		score_display.text = "" + score;
+	}
+
+	public void GameOver() {
+		gameover_display.text = "Game Over";
+		game_over = true;
+		GetComponent<AudioSource>().Stop();
 	}
 }

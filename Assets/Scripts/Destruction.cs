@@ -25,6 +25,7 @@ public class Destruction : MonoBehaviour {
 		Instantiate(explosion, transform.position, transform.rotation);
 		if (other.tag == "Player") {
 			Instantiate (player_destruction, other.transform.position, other.transform.rotation);
+			game_controller.GameOver ();
 		}
 		game_controller.AddPoints (points_value);
 		Destroy(other.gameObject);
