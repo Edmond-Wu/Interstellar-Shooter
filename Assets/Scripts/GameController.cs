@@ -14,21 +14,34 @@ public class GameController : MonoBehaviour {
 	public GUIText score_display;
 	public GUIText restart_display;
 	public GUIText gameover_display;
+	public GUIText menu;
+	public GUIText instructions;
 
 	private bool game_over;
 	private bool restart;
+	private bool start_game;
 
 	void Start() {
 		score = 0;
 		UpdateScore ();
-		StartCoroutine(SpawnAsteroids ());
 		gameover_display.text = "";
 		restart_display.text = "";
+		menu.text = "Welcome to Interstellar Shooter\nPress Enter to start!";
+		instructions.text = "WASD or arrow keys to move\nLeft-click or space to shoot";
 		game_over = false;
 		restart = false;
+		start_game = false;
 	}
 
 	void Update() {
+		if ((Input.GetKeyDown("return") || Input.GetKeyDown("enter")) && !restart) {
+			menu.text = "";
+			instructions.text = "";
+			start_game = true;
+			if (start_game) {
+				StartCoroutine (SpawnAsteroids ());
+			}
+		}
 		if (restart) {
 			if (Input.GetKeyDown (KeyCode.R)) {
 				Application.LoadLevel (Application.loadedLevel);
@@ -46,10 +59,10 @@ public class GameController : MonoBehaviour {
 				yield return new WaitForSeconds(wait_spawn);
 			}
 			yield return new WaitForSeconds(between_waves);
-
 			if (game_over) {
 				restart_display.text = "Press R to Restart";
 				restart = true;
+				start_game = false;
 				break;
 			}
 		}
@@ -65,7 +78,7 @@ public class GameController : MonoBehaviour {
 	}
 
 	public void GameOver() {
-		gameover_display.text = "Game Over";
+		gameover_display.text = "Game Over\n\nYour score was: " + score;
 		game_over = true;
 		GetComponent<AudioSource>().Stop();
 	}
